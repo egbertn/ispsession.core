@@ -1,0 +1,24 @@
+Software License Agreement
+
+This Software License Agreement ("Agreement") is made between you ("Licensee") and Nierop Computervision, a company incorporated under the laws of the Netherlands with its registered office at [Vul hier je adres in], registered with the Dutch Chamber of Commerce under number 33235351 ("Licensor").
+License
+
+Licensor grants Licensee a non-exclusive, non-transferable, limited license to use the software provided by Licensor ("Software") solely for Licensee's personal or internal business purposes subject to the terms and conditions set forth in this Agreement.
+Restrictions
+
+Licensee shall not modify, make derivative works of, disassemble, reverse compile or reverse engineer any part of the Software, nor shall Licensee attempt to do so, except and only to the extent that such activity is expressly permitted by applicable law notwithstanding this limitation.
+No Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Limitation of Liability
+
+To the maximum extent permitted by applicable law, in no event shall Licensor be liable for any special, incidental, indirect, or consequential damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or any other pecuniary loss) arising out of the use of or inability to use the Software, even if Licensor has been advised of the possibility of such damages.
+Money-Back Guarantee
+
+Licensor offers a one-month money-back guarantee for the Software. If Licensee is not satisfied with the Software, Licensee can request a full refund within one month from the date of purchase.
+Governing Law
+
+This Agreement shall be governed by and construed in accordance with the laws of the Netherlands, without regard to its conflict of law provisions.
+Acknowledgment
+
+BY INSTALLING, COPYING, OR OTHERWISE USING THE SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ THIS AGREEMENT, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS.

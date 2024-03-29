@@ -1,6 +1,12 @@
-@demo_HostAddress = http://localhost:5210
+@demo_HostAddress = http://localhost:5045
 
 GET {{demo_HostAddress}}/weatherforecast/
 Accept: application/json
 
-###
+### use session counter
+GET {{demo_HostAddress}}/counter/
+Accept: application/json
+
+### use both session and app
+GET {{demo_HostAddress}}/counterwithapp/
+Accept: application/json
