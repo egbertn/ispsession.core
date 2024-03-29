@@ -1,5 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Mvc;
+using NCV.ISPSession;
 
+var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+builder.Logging.ClearProviders();
+builder.Logging.AddSimpleConsole(i => i.SingleLine = true);
+services.AddISPSessionService(builder.Configuration);
+services.AddHostedService<MyDataExpirationService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +24,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -27,8 +34,8 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+.WithName("GetWeatherForecast");
+
 
 app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
 {

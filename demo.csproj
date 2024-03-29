@@ -4,10 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>b0f545c4-9819-417b-9944-6dcba8ffd899</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NCV.ISPSession" Version="10.0.0" />
+    <PackageReference Include="NCV.ISPSession" Version="10.0.1" />
   </ItemGroup>
 
 </Project>
