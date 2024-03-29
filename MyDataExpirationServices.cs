@@ -1,3 +1,8 @@
+// ISP Session 10.0.x (c) 2024 Nierop Computer Vision
+// ISP Session is being maintained by Nierop Computer Vision and is commercial software
+// Apply for an affordable licence at https://www.nieropcomputervision.com/ispsession
+// Thank you for your kind support and I am sure you will love ISP Session!
+
 using NCV.ISPSession;
 
 public class MyDataExpirationService(

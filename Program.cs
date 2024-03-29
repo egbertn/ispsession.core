@@ -1,3 +1,8 @@
+// ISP Session 10.0.x (c) 2024 Nierop Computer Vision
+// ISP Session is being maintained by Nierop Computer Vision and is commercial software
+// Apply for an affordable licence at https://www.nieropcomputervision.com/ispsession
+// Thank you for your kind support and I am sure you will love ISP Session!
+
 using Microsoft.AspNetCore.Mvc;
 using NCV.ISPSession;
 
@@ -8,12 +13,6 @@ builder.Logging.AddSimpleConsole(i => i.SingleLine = true);
 services.AddISPSessionService(builder.Configuration);
 services.AddHostedService<MyDataExpirationService>();
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-
-}
 
 app.UseHttpsRedirection();
 
@@ -33,10 +32,9 @@ app.MapGet("/weatherforecast", () =>
         ))
         .ToArray();
     return forecast;
-})
-.WithName("GetWeatherForecast");
+});
 
-
+// some simple API examples using SessionState
 app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
 {
     var counter = sessionState.Get<int>("Counter");
@@ -50,10 +48,10 @@ app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
         SessionId = sessionState.SessionId
     };
 });
-
 app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
 {
-     var appCounter = appState.Get<int>("Counter");
+    string str = new("asdf");
+    var appCounter = appState.Get<int>("Counter");
     appCounter++;
     appState.Set("Counter", appCounter);
     return new
@@ -63,7 +61,7 @@ app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
 });
 app.UseISPSession(UseMode.Both);
 
- app.MapGet("/abandon", (HttpContext httpContext, [FromServices]SessionState sessionState) =>
+app.MapGet("/abandon", (HttpContext httpContext, [FromServices]SessionState sessionState) =>
 {
     sessionState.Abandon(httpContext);
 });
