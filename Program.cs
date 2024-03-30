@@ -10,7 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 builder.Logging.ClearProviders();
 builder.Logging.AddSimpleConsole(i => i.SingleLine = true);
-services.AddISPSessionService(builder.Configuration);
+services.AddISPSessionService(builder.Configuration, options =>
+{
+    //note these options already have defaults for easy start
+    // for demo purpose we show how to use it.
+    options.ApplicationName = "Demo";
+    options.CompressData = true;
+    options.AffinityMethod = AffinityMethods.Cookie;
+    options.CorrellationCookieName = "sessioncorrelation";
+    options.SessionCookieName = "ispsession";
+    options.UseRedisDataProtection = true;
+});
 services.AddHostedService<MyDataExpirationService>();
 var app = builder.Build();
 
