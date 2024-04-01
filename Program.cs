@@ -10,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 builder.Logging.ClearProviders();
 builder.Logging.AddSimpleConsole(i => i.SingleLine = true);
+
+
+
 services.AddISPSessionService(builder.Configuration, options =>
 {
     //note these options already have defaults for easy start
@@ -20,6 +23,8 @@ services.AddISPSessionService(builder.Configuration, options =>
     options.CorrellationCookieName = "sessioncorrelation";
     options.SessionCookieName = "ispsession";
     options.UseRedisDataProtection = true;
+    // use both Application State and Session State
+    options.Mode = UseMode.Both;
 });
 services.AddHostedService<MyDataExpirationService>();
 var app = builder.Build();
@@ -60,7 +65,6 @@ app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
 });
 app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
 {
-    string str = new("asdf");
     var appCounter = appState.Get<int>("Counter");
     appCounter++;
     appState.Set("Counter", appCounter);
@@ -69,7 +73,7 @@ app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
         AppCounter = appCounter
     };
 });
-app.UseISPSession(UseMode.Both);
+app.UseISPSession();
 
 app.MapGet("/abandon", (HttpContext httpContext, [FromServices]SessionState sessionState) =>
 {
