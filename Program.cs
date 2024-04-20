@@ -22,7 +22,6 @@ services.AddISPSessionService(builder.Configuration, options =>
     options.AffinityMethod = AffinityMethods.Cookie;
     options.CorrellationCookieName = "sessioncorrelation";
     options.SessionCookieName = "ispsession";
-    options.UseRedisDataProtection = true;
     // use both Application State and Session State
     options.Mode = UseMode.Both;
 });
