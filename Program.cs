@@ -1,6 +1,6 @@
 // ISP Session 10.0.x (c) 2024 Nierop Computer Vision
 // ISP Session is being maintained by Nierop Computer Vision and is commercial software
-// Apply for an affordable licence at https://www.nieropcomputervision.com/ispsession
+// Apply for an affordable license at https://www.nieropcomputervision.com/ispsession
 // Thank you for your kind support and I am sure you will love ISP Session!
 
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 builder.Logging.ClearProviders();
 builder.Logging.AddSimpleConsole(i => i.SingleLine = true);
-
-
-
 services.AddISPSessionService(builder.Configuration, options =>
 {
     //note these options already have defaults for easy start
@@ -20,6 +17,7 @@ services.AddISPSessionService(builder.Configuration, options =>
     options.ApplicationName = "Demo";
     options.CompressData = true;
     options.AffinityMethod = AffinityMethods.Cookie;
+    options.DataTimeOutSec = (int)TimeSpan.FromSeconds(20).TotalSeconds;
     options.CorrellationCookieName = "sessioncorrelation";
     options.SessionCookieName = "ispsession";
     // use both Application State and Session State
@@ -28,27 +26,8 @@ services.AddISPSessionService(builder.Configuration, options =>
 services.AddHostedService<MyDataExpirationService>();
 var app = builder.Build();
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
-
 // some simple API examples using SessionState
+// ISP Session is supported for Razor Pages, for ApiController classes
 app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
 {
     var counter = sessionState.Get<int>("Counter");
@@ -76,11 +55,15 @@ app.UseISPSession();
 
 app.MapGet("/abandon", (HttpContext httpContext, [FromServices]SessionState sessionState) =>
 {
+    //abandon cleans up immediately data  which normally expires
     sessionState.Abandon(httpContext);
 });
 
 app.MapGet("/appkeyexpire", ([FromServices]ApplicationState appState) =>
 {
+    //expire the application key in one second
+    // MyDataExpirationService should pretty much immediately
+    //notify you of this event see your debugging console
     appState.ExpireKeyAt("Counter", TimeSpan.FromSeconds(1));
 });
 
@@ -106,7 +89,3 @@ app.MapGet("/counterWithApp", ([FromServices] SessionState sessionState, [FromSe
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
