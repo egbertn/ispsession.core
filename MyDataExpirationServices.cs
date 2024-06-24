@@ -19,6 +19,7 @@ public class MyDataExpirationService(
             appState.Set(key, Random.Shared.Next());
             return Task.CompletedTask;
         };
+
         await Task.Delay(-1, stoppingToken);
     }
 }
