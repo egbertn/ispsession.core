@@ -10,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 builder.Logging.ClearProviders();
 builder.Logging.AddSimpleConsole(i => i.SingleLine = true);
+
+// these are the only runtime options you would need to customize
+// the other ones go into appsettings
 services.AddISPSessionService(builder.Configuration, options =>
 {
     //note these options already have defaults for easy start
@@ -22,9 +25,17 @@ services.AddISPSessionService(builder.Configuration, options =>
     options.SessionCookieName = "ispsession";
     // use both Application State and Session State
     options.Mode = UseMode.Both;
+    options.SameSite = SameSiteMode.Lax;
 });
+
+// if you want application level variable expiration optionally
+// add your own hosted service
 services.AddHostedService<MyDataExpirationService>();
 var app = builder.Build();
+
+// put SessionState and/or ApplicationState in the request pipeline
+app.UseISPSession();
+
 
 // some simple API examples using SessionState
 // ISP Session is supported for Razor Pages, for ApiController classes
@@ -41,6 +52,7 @@ app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
         SessionId = sessionState.SessionId
     };
 });
+
 app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
 {
     var appCounter = appState.Get<int>("Counter");
@@ -51,7 +63,6 @@ app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
         AppCounter = appCounter
     };
 });
-app.UseISPSession();
 
 app.MapGet("/abandon", (HttpContext httpContext, [FromServices]SessionState sessionState) =>
 {
