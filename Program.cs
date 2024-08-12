@@ -39,7 +39,7 @@ app.UseISPSession();
 
 // some simple API examples using SessionState
 // ISP Session is supported for Razor Pages, for ApiController classes
-app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
+app.MapGet("/counter", ([FromServices] ISessionState sessionState) =>
 {
     var counter = sessionState.Get<int>("Counter");
     counter++;
@@ -53,7 +53,7 @@ app.MapGet("/counter", ([FromServices] SessionState sessionState) =>
     };
 });
 
-app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
+app.MapGet("/apponly", ([FromServices] IApplicationState appState) =>
 {
     var appCounter = appState.Get<int>("Counter");
     appCounter++;
@@ -64,13 +64,13 @@ app.MapGet("/apponly", ([FromServices] ApplicationState appState) =>
     };
 });
 
-app.MapGet("/abandon", (HttpContext httpContext, [FromServices]SessionState sessionState) =>
+app.MapGet("/abandon", (HttpContext httpContext, [FromServices]ISessionState sessionState) =>
 {
     //abandon cleans up immediately data  which normally expires
     sessionState.Abandon(httpContext);
 });
 
-app.MapGet("/appkeyexpire", ([FromServices]ApplicationState appState) =>
+app.MapGet("/appkeyexpire", ([FromServices]IApplicationState appState) =>
 {
     //expire the application key in one second
     // MyDataExpirationService should pretty much immediately
@@ -78,7 +78,7 @@ app.MapGet("/appkeyexpire", ([FromServices]ApplicationState appState) =>
     appState.ExpireKeyAt("Counter", TimeSpan.FromSeconds(1));
 });
 
-app.MapGet("/counterWithApp", ([FromServices] SessionState sessionState, [FromServices]ApplicationState appState) =>
+app.MapGet("/counterWithApp", ([FromServices] ISessionState sessionState, [FromServices]IApplicationState appState) =>
 {
     var counter = sessionState.Get<int>("Counter");
     counter++;
