@@ -7,11 +7,31 @@ using NCV.ISPSession;
 
 public class MyDataExpirationService(
     KeyExpiredEventHook keyExpiredEventHook,
-    ILogger<MyDataExpirationService> logger
+    ILogger<MyDataExpirationService> logger,
+    IServiceScopeFactory serviceScopeFactory
     ) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await using (var scope = serviceScopeFactory.CreateAsyncScope())
+        {
+            //important, IApplicationState implement IAsyncDisposable
+            await using var applicationState = scope.ServiceProvider.GetRequiredService<IApplicationState>();
+            var persistComplexData = new ServiceDto
+            {
+                Description = "test",
+                Id = 1,
+                ImageUri = "image.jpg",
+                Name = "test",
+                NumberOfBeds = 2,
+                Properties = new Dictionary<string, string> { { "key", "test" } },
+                ServiceTimes = [
+                    new () { Id = 1, Duration=TimeSpan.FromMinutes(70), Price=60, TreatmentTime = TimeSpan.FromMinutes(60) }]
+
+            };
+            applicationState.Set("complex_data", persistComplexData);
+        }
+
         keyExpiredEventHook.KeyExpiredAsync += (key, appState) =>
         {
             logger.LogInformation("The following application key just has expired: {key}", key);

@@ -20,7 +20,7 @@ services.AddISPSessionService(builder.Configuration, options =>
     options.ApplicationName = "Demo";
     options.CompressData = true;
     options.AffinityMethod = AffinityMethods.Cookie;
-    options.DataTimeOutSec = (int)TimeSpan.FromSeconds(20).TotalSeconds;
+    options.DataTimeOut = TimeSpan.FromSeconds(10);
     options.CorrellationCookieName = "sessioncorrelation";
     options.SessionCookieName = "ispsession";
     // use both Application State and Session State
@@ -36,6 +36,13 @@ var app = builder.Build();
 // put SessionState and/or ApplicationState in the request pipeline
 app.UseISPSession();
 
+app.MapGet("/complexdata", ( [FromServices]IApplicationState appState) =>
+{
+    // this data is set in the MyDataExpirationService, just to demonstrate persistance
+    var persistComplexData = appState.Get<ServiceDto>("complex_data");
+    return persistComplexData;
+
+});
 
 // some simple API examples using SessionState
 // ISP Session is supported for Razor Pages, for ApiController classes
