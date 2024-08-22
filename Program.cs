@@ -13,7 +13,7 @@ builder.Logging.AddSimpleConsole(i => i.SingleLine = true);
 
 // these are the only runtime options you would need to customize
 // the other ones go into appsettings
-services.AddISPSessionService(builder.Configuration, options =>
+services.AddISPSessionService(options =>
 {
     //note these options already have defaults for easy start
     // for demo purpose we show how to use it.
