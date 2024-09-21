@@ -3,6 +3,7 @@
 // Apply for an affordable license at https://www.nieropcomputervision.com/ispsession
 // Thank you for your kind support and I am sure you will love ISP Session!
 
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using NCV.ISPSession;
 
@@ -17,12 +18,12 @@ services.AddISPSessionService(options =>
 {
     //note these options already have defaults for easy start
     // for demo purpose we show how to use it.
-    options.ApplicationName = "Demo";
+    //options.ApplicationName = "Demo";
     options.CompressData = true;
     options.AffinityMethod = AffinityMethods.Cookie;
-    options.DataTimeOut = TimeSpan.FromSeconds(10);
-    options.CorrellationCookieName = "sessioncorrelation";
-    options.SessionCookieName = "ispsession";
+    //options.DataTimeOut = TimeSpan.FromSeconds(10);
+    //options.CorrellationCookieName = "sessioncorrelation";
+    //options.SessionCookieName = "ispsession";
     // use both Application State and Session State
     options.Mode = UseMode.Both;
     options.SameSite = SameSiteMode.Lax;
@@ -59,6 +60,43 @@ app.MapGet("/counter", ([FromServices] ISessionState sessionState) =>
         SessionId = sessionState.SessionId
     };
 });
+
+
+//Demonstraties how to get the session in cases
+// where you need e.g. deep inspection of the request body
+//  you must set this AffinityMethod first
+//    options.AffinityMethod = AffinityMethods.CustomInit;
+app.MapPost("/countercustom", async (HttpContext context) =>
+{
+
+    async Task <string?> RetrieveSessionIdFromBody()
+    {
+        var request = context.Request;
+        var response = context.Response;
+        if (request.ContentType != "application/json")
+        {
+            throw new InvalidOperationException("expected JSON");
+        }
+        var myJson =await JsonSerializer.DeserializeAsync<DeepInspectBody>(request.Body);
+        return myJson.PhoneNumber;
+    }
+
+    await using var sessionState = await context.GetCustomSessionId(await RetrieveSessionIdFromBody());
+
+    // from here the usual code
+    var counter = sessionState.Get<int>("Counter");
+    counter++;
+    sessionState.Set("Counter", counter);
+    return new
+    {
+        SessionCounter = counter,
+        IsExpiredSession = sessionState.IsExpired,
+        IsNewSession    = sessionState.IsNew,
+        SessionId = sessionState.SessionId
+    };
+});
+
+
 
 app.MapGet("/apponly", ([FromServices] IApplicationState appState) =>
 {

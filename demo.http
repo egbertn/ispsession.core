@@ -15,3 +15,16 @@ Accept: application/json
 ### counter and application test
 GET {{Demo_HostAddress}}/counterwithapp/
 Accept: application/json
+
+### custom counter and application test
+### using some deep body inspection
+### this is usefull for b2b where cookies
+### are not involved
+POST {{Demo_HostAddress}}/countercustom/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "PhoneNumber": "0612345678",
+    "EtcEtc": "just demo"
+}

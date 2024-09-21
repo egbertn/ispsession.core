@@ -17,3 +17,8 @@ public class ServiceDto
     public Dictionary<string, string> Properties = null!;
     public ICollection<ServiceTimeDto> ServiceTimes { get; set; } = null!;
 }
+public class DeepInspectBody
+{
+    public string PhoneNumber { get; set; } = null!;
+    public string EtcEtc { get; set; } = null!;
+}
