@@ -5,6 +5,7 @@ demonstrating the minimal setup and requirements for installing and using Isp Se
 for help and registration for your license navigate to
 https://www.nieropcomputervision/ispsession
 
+[![Buy Me a Coffee](https://raw.githubusercontent.com/egbertn/ispsession.core/main/bmc_qr.png)]
 
 ## License
 
