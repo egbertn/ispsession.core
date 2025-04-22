@@ -1,6 +1,6 @@
 # Redis Session State Library DEMO
 
-Demo Project for ISP Session Core 10.0 or higher.
+Demo Project for ISP Session 12.0 or higher.
 demonstrating the minimal setup and requirements for installing and using Isp Session
 for help and registration for your license navigate to
 https://www.nieropcomputervision/ispsession
@@ -11,25 +11,28 @@ https://www.nieropcomputervision/ispsession
 
 This software is licensed under the terms found in the LICENSE.txt file located in the project root. Please refer to the LICENSE file for the full text of the license.
 
-Copyright © 2024 Nierop Computervision. All rights reserved.
+Copyright © 2024, 2025 Nierop Computervision. All rights reserved.
+
+## Source Code
+On special request, you can get a copy of the full source code of ISP Session if you need that.
 
 ## Product Description
-Isp Session provides a mechanism, utilizing cookies, headers, or even IP addresses**, to maintain state affinity in your REST API or ASP.NET Core 6+ driven website. It facilitates application-level caching by combining Application State and Session State, which can be utilized together or independently. The added value over direct usage of Redis or MemCached is scalability. Each request has minimal backend interaction while ensuring full encryption and minimal data size. Additionally, Application State offers the capability to capture expiration events for background data refresh.
+Isp Session provides a mechanism, utilizing cookies, headers, or even IP addresses**, to maintain state affinity in your REST API or ASP.NET 8+ driven website. It facilitates application-level caching by combining Application State and Session State, which can be utilized together or independently. The added value over direct usage of Redis or MemCached is scalability. Each request has minimal backend interaction while ensuring full encryption and minimal data size. Additionally, Application State offers the capability to capture expiration events for background data refresh.
 
 ** We adhere to privacy laws by implementing obfuscation for IP addresses when this feature is utilized.
 
 ## Overview
 
-The Redis Session State Library offers a robust and efficient solution for session state management in .NET Core 6+ applications, leveraging Redis 4 or later as the backend. Our solution employs advanced data projection techniques for encrypting the session state, securing your data at all times.
+The Redis Session State Library offers a robust and efficient solution for session state management in .NET 8+ applications, leveraging Redis 4 or later as the backend. Our solution employs advanced data projection techniques for encrypting the session state, securing your data at all times.
 
 ## History
-Isp Session debuts at version 10.0, following the author's previous releases of Isp Session/Asp Session for classic ASP pages, which reached version 8.2. Available at https://github.com/egbertn/ispsession.io, Isp Session has been completely rewritten from scratch to leverage the best features of .NET 6.0, incorporating best practices learned from previous versions.
+Isp Session debuts at version 10.0, following the author's previous releases of Isp Session/Asp Session for classic ASP pages, which reached version 8.2. Available at https://github.com/egbertn/ispsession.io, Isp Session has been completely rewritten from scratch to leverage the best features of .NET 8.0, incorporating best practices learned from previous versions.
 
 ## Features
 
 - **Secure Session State Management**: Encrypts session data using advanced data projection techniques.
 - **High Performance**: Utilizes Redis 4+ for fast and reliable session state storage.
-- **.NET Core 6+ Support**: Specifically designed for .NET Core 6 applications to ensure compatibility and optimal performance.
+- **.NET 8+ Support**: Specifically designed for .NET 8 applications to ensure compatibility and optimal performance.
 - **Privacy First Approach**: Operates without telemetry or external server connections, keeping all customer data private.
 
 ## Getting Started
@@ -74,7 +77,7 @@ Note: Isp Session supports unlimited testing, development, and staging as long a
 
 ### Prerequisites
 
-- .NET Core 6.0 or later
+- .NET 8.0 or later
 - Redis 4.0 or later
 
 ### Installation

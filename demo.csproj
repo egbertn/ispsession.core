@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NCV.ISPSession" Version="11.0.11" />
+    <PackageReference Include="NCV.ISPSession" Version="12.0.4" />
   </ItemGroup>
 
 </Project>
